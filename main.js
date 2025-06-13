@@ -1,4 +1,4 @@
-const API_URL = 'https://handsome-principled-quilt';
+const API_URL = 'https://handsome-principled-quilt.glitch.me';
 const socket = io(API_URL);
 let currentReportId = null; // Ubah dari localStorage untuk menghindari masalah
 let isTyping = false;

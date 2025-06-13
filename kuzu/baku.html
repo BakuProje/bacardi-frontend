@@ -779,7 +779,7 @@
 
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <script>
-        const API_URL = 'https://handsome-principled-quilt';
+            const API_URL = 'https://handsome-principled-quilt.glitch.me';
         const socket = io(API_URL);
         let currentReportId = null;
         let isTyping = false;
@@ -837,7 +837,7 @@
 
         async function fetchReports() {
             try {
-                const response = await fetch('http://localhost:5000/api/reports');
+                const response = await fetch(`${API_URL}/api/reports`);
                 const reports = await response.json();
                 
                 const reportsList = document.getElementById('reportsList');
