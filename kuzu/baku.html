@@ -564,12 +564,10 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        /* Animasi smooth untuk transisi */
         .message, .report-item, .send-button, .close-report-btn {
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Tambahkan style untuk status pesan */
         .message-status {
             display: inline-flex;
             align-items: center;
@@ -579,19 +577,17 @@
         }
 
         .message-status.sent {
-            color: rgba(148, 163, 184, 0.5); /* Abu-abu untuk belum dibaca */
+            color: rgba(148, 163, 184, 0.5); 
         }
 
         .message-status.read {
-            color: var(--primary-color); /* Biru untuk sudah dibaca */
+            color: var(--primary-color); 
         }
 
-        /* Style untuk animasi transisi status */
         .message-status {
             transition: color 0.3s ease;
         }
 
-        /* Tambahkan style untuk hamburger menu dan responsive layout */
         .hamburger-menu {
             display: none;
             padding: 10px;
@@ -611,7 +607,6 @@
             transition: transform 0.3s ease;
         }
 
-        /* Style untuk clear report button di mobile */
         .mobile-actions {
             display: none;
             padding: 10px;
@@ -633,7 +628,6 @@
             gap: 8px;
         }
 
-        /* Media query untuk tampilan mobile */
         @media screen and (max-width: 768px) {
             .hamburger-menu {
                 display: block;
@@ -675,7 +669,6 @@
                 padding-left: 50px;
             }
 
-            /* Tambahkan overlay saat sidebar aktif */
             .sidebar-overlay {
                 display: none;
                 position: fixed;
@@ -793,7 +786,7 @@
         .chat-container {
             display: flex;
             flex-direction: column;
-                height: calc(100vh - 140px); /* Kurangi tinggi header */
+                height: calc(100vh - 140px); 
                 overflow: hidden;
         }
 
@@ -878,7 +871,7 @@
         function addReportItemListeners() {
             document.querySelectorAll('.report-item').forEach(item => {
                 item.onclick = function(e) {
-                    // Ambil data dari attribute
+
                     const reportId = this.getAttribute('data-report-id');
                     const growId = this.getAttribute('data-grow-id');
                     const category = this.getAttribute('data-category');
@@ -913,7 +906,7 @@
 
             setTimeout(() => markMessagesAsRead(), 1000);
 
-            // Tutup sidebar setelah memilih report di mobile
+
             if (window.innerWidth <= 768) {
                 toggleSidebar();
             }
@@ -1329,7 +1322,6 @@
             textarea.style.height = textarea.scrollHeight + 'px';
         }
 
-        // Tambahkan fungsi untuk toggle sidebar
         function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
             const overlay = document.querySelector('.sidebar-overlay');
@@ -1342,12 +1334,12 @@
             }
         }
 
-        // Tambahkan event listener untuk resize window
+
         window.addEventListener('resize', () => {
             const sidebar = document.querySelector('.sidebar');
             const overlay = document.querySelector('.sidebar-overlay');
             
-            // Reset sidebar state saat ukuran window berubah
+
             if (window.innerWidth > 768) {
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');

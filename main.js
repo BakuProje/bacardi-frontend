@@ -1,11 +1,11 @@
 const API_URL = 'https://bacardi-report-api-b8957a8385db.herokuapp.com';
 const socket = io(API_URL);
-let currentReportId = null; // Ubah dari localStorage untuk menghindari masalah
+let currentReportId = null; 
 let isTyping = false;
 let typingTimeout;
-let selectedImage = null; // Perbaiki nama variabel yang konsisten
+let selectedImage = null; 
 
-// Check if there's an active report when page loads
+
 window.addEventListener('load', () => {
     const storedReportId = localStorage.getItem('currentReportId');
     if (storedReportId) {
@@ -96,7 +96,7 @@ function showChatInterface() {
         </div>
     `;
 
-    // Add styles for new features
+
     const style = document.createElement('style');
     style.textContent = `
         .typing-indicator {
@@ -218,10 +218,8 @@ function handleTyping() {
         socket.emit('typing', { reportId: currentReportId });
     }
     
-    // Clear previous timeout
     clearTimeout(typingTimeout);
     
-    // Set new timeout
     typingTimeout = setTimeout(() => {
         isTyping = false;
         socket.emit('stop-typing', { reportId: currentReportId });
@@ -232,9 +230,7 @@ async function loadReportMessages(reportId) {
     try {
         const response = await fetch(`${API_URL}/api/reports/${reportId}`);
         if (!response.ok) {
-            // Jika report tidak ditemukan (404), hapus reportId dari localStorage dan database
             localStorage.removeItem('currentReportId');
-            // Coba hapus report di database (jaga-jaga jika masih ada)
             await fetch(`${API_URL}/api/reports/${reportId}`, { method: 'DELETE' });
             showNotification('Report tidak ditemukan, data akan direset.', 'error');
             closeReportForm();
@@ -290,7 +286,6 @@ function appendMessage(data) {
         `;
     }
 
-    // Tambahkan header admin jika pesan dari admin
     let adminHeader = '';
     if (data.isAdmin) {
         const avatar = data.adminAvatar ? data.adminAvatar : './img/bacardi.png';
@@ -343,7 +338,6 @@ async function handleImageUpload(event) {
     }
     reader.readAsDataURL(file);
 
-    // Upload gambar ke server
     const formData = new FormData();
     formData.append('image', file);
 
@@ -402,17 +396,14 @@ async function sendUserMessage(e) {
         createdAt: new Date()
     };
 
-    // Emit pesan ke server
     socket.emit('send-message', messageData);
     
-    // Reset form
     messageInput.value = '';
     if (selectedImage) {
         cancelImageUpload();
     }
 }
 
-// Update socket listener untuk new-message
 socket.on('new-message', (data) => {
     if (data.reportId === currentReportId) {
         appendMessage(data);
@@ -468,7 +459,6 @@ function showNotification(message, type = 'info') {
     
     document.body.appendChild(notification);
     
-    // Remove any existing notifications
     const existingNotifications = document.querySelectorAll('.notification');
     existingNotifications.forEach((notif, index) => {
         if (notif !== notification) {
@@ -476,12 +466,10 @@ function showNotification(message, type = 'info') {
         }
     });
     
-    // Add closing animation after delay
     setTimeout(() => {
         notification.classList.add('closing');
         setTimeout(() => {
             notification.remove();
-            // Reposition remaining notifications
             document.querySelectorAll('.notification').forEach((notif, index) => {
                 notif.style.top = `${24 + index * 80}px`;
             });
@@ -499,18 +487,13 @@ function openReportForm() {
         showChatInterface();
         socket.emit('join-report', currentReportId);
         loadReportMessages(currentReportId);
-    } else {
-        // Render ulang form report (bisa ambil dari index.html atau buat function renderReportForm())
+    } else {        
         renderReportForm();
     }
 }
 
 function closeReportForm() {
     document.getElementById('reportModal').style.display = 'none';
-    // Jangan hapus innerHTML modal-content!
-    // currentReportId = null; // Hanya reset jika report selesai/closed
-    // selectedImage = null;
-    // localStorage.removeItem('currentReportId');
 }
 
 window.onclick = function(event) {
@@ -654,7 +637,6 @@ function createSnowflake() {
 
 setInterval(createSnowflake, 100);
 
-// Tambahkan fungsi untuk menandai pesan admin sebagai telah dibaca
 function markAdminMessagesAsRead() {
     const adminMessages = document.querySelectorAll('.message.admin');
     if (adminMessages.length > 0 && currentReportId) {
@@ -662,7 +644,6 @@ function markAdminMessagesAsRead() {
     }
 }
 
-// Panggil fungsi ini saat user membuka atau melihat chat
 document.addEventListener('visibilitychange', () => {
     if (!document.hidden) {
         markAdminMessagesAsRead();
