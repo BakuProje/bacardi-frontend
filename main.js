@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000';
+const API_URL = 'https://nosy-general-cherry.glitch.me';
 const socket = io(API_URL);
 let currentReportId = null; // Ubah dari localStorage untuk menghindari masalah
 let isTyping = false;
