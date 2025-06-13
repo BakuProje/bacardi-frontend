@@ -1,4 +1,4 @@
-const API_URL = 'http://159.223.55.200:6000';
+const API_URL = 'https://bacardi-report-api.herokuapp.com';
 const socket = io(API_URL);
 let currentReportId = null; // Ubah dari localStorage untuk menghindari masalah
 let isTyping = false;
