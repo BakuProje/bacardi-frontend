@@ -1,10 +1,10 @@
 :root {
-    --primary-color: #2196F3;
-    --secondary-color: #64B5F6;
-    --background-color: #E3F2FD;
-    --card-bg: rgba(255, 255, 255, 0.9);
-    --text-color: #1565C0;
-    --border-radius: 12px;
+    --primary-color: #2563eb;
+    --secondary-color: #1e293b;
+    --background-color: #181f2a;
+    --card-bg: #232c3b;
+    --text-color: #e0e6ed;
+    --border-radius: 14px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -16,7 +16,7 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, rgba(227, 242, 253, 0.7) 0%, rgba(187, 222, 251, 0.7) 100%);
+    background: linear-gradient(135deg, #181f2a 0%, #232c3b 100%);
     color: var(--text-color);
     min-height: 100vh;
     display: flex;
@@ -31,12 +31,11 @@ body {
 }
 
 .content-wrapper {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    background: var(--card-bg);
     border-radius: 20px;
     padding: 30px;
-    box-shadow: 0 8px 32px rgba(33, 150, 243, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .logo-section {
@@ -62,10 +61,9 @@ body {
 .link-button, .report-button {
     padding: 16px 24px;
     border-radius: var(--border-radius);
-    border: none;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    color: var(--text-color);
+    border: 1px solid #2563eb33;
+    background: #232c3b;
+    color: #e0e6ed;
     font-size: 16px;
     text-decoration: none;
     text-align: left;
@@ -76,7 +74,6 @@ body {
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .button-icon {
@@ -102,21 +99,14 @@ body {
 }
 
 .link-button:hover, .report-button:hover {
-    background: rgba(33, 150, 243, 0.2);
-    border-color: var(--primary-color);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(33, 150, 243, 0.2);
+    background: #2563eb;
+    color: #fff;
+    border-color: #2563eb;
 }
 
 .report-button {
-    background: rgba(33, 150, 243, 0.8);
-    color: white;
-    border: none;
-    font-weight: 600;
-}
-
-.report-button:hover {
-    background: rgba(25, 118, 210, 0.9);
+    background: linear-gradient(90deg, #2563eb 0%, #1e293b 100%);
+    color: #fff;
 }
 
 .modal {
@@ -137,9 +127,10 @@ body {
     max-height: 90vh;
     min-height: 200px;
     overflow: hidden;
-    background: rgba(14, 22, 33, 0.95);
+    background: #181f2a;
+    color: #e0e6ed;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid #232c3b;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     margin: 5% auto;
     width: 90%;
@@ -362,7 +353,8 @@ body {
     display: flex;
     flex-direction: column;
     height: 100%;
-    background: rgba(14, 22, 33, 0.95);
+    background: #181f2a;
+    color: #e0e6ed;
     border-radius: 12px;
 }
 
@@ -407,7 +399,7 @@ body {
     overflow-y: auto;
     min-height: 0;
     padding: 20px;
-    background: rgba(14, 22, 33, 0.8);
+    background: #181f2a;
 }
 
 .message {
@@ -507,7 +499,8 @@ body {
     bottom: 0;
     z-index: 2;
     padding: 15px 20px;
-    background: rgba(33, 150, 243, 0.1);
+    background: #181f2a;
+    color: #e0e6ed;
     backdrop-filter: blur(10px);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 0 0 12px 12px;
@@ -545,7 +538,7 @@ body {
 #userMessageInput {
     flex: 1;
     border: none;
-    background: transparent;
+    background: #232c3b;
     color: #fff;
     font-size: 15px;
     padding: 10px 12px;
@@ -646,9 +639,24 @@ body {
 
 @media (max-width: 480px) {
     .container {
-        padding: 10px;
+        padding: 4px;
     }
-    
+    .modal-content,
+    .content-wrapper,
+    .report-form-modern {
+        backdrop-filter: none !important;
+        box-shadow: none !important;
+        background: #181f2a !important;
+    }
+    .chat-container,
+    .chat-messages,
+    .chat-header,
+    .chat-input-container {
+        background: #181f2a !important;
+    }
+    .snowflake {
+        display: none !important;
+    }
     .modal-content {
         height: 95vh;
         max-width: 98vw;
@@ -663,6 +671,30 @@ body {
     }
     #reportModal .report-form-modern .chat-header {
         display: none !important;
+    }
+    #userMessageForm {
+        gap: 4px;
+    }
+    .send-button {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+        min-width: 36px;
+        min-height: 36px;
+    }
+    .upload-image-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 18px;
+    }
+    #userMessageInput {
+        font-size: 14px;
+        padding: 8px 8px;
+        background: #232c3b !important;
+        color: #fff !important;
+    }
+    .chat-input-container {
+        padding: 8px;
     }
 }
 
@@ -832,23 +864,49 @@ body {
 }
 
 .report-form-modern .submit-button {
+    width: 100%;
+    padding: 18px 0;
     background: linear-gradient(90deg, #2196F3 0%, #21CBF3 100%);
     color: #fff;
     border: none;
-    border-radius: 14px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    padding: 16px 0;
-    margin-top: 10px;
-    box-shadow: 0 4px 20px rgba(33,150,243,0.18);
-    transition: background 0.2s, transform 0.2s;
+    border-radius: 16px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    box-shadow: 0 4px 24px 0 rgba(33,150,243,0.18), 0 1.5px 6px 0 rgba(33,150,243,0.10);
     text-transform: uppercase;
     letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+}
+
+.report-form-modern .submit-button .button-icon {
+    background: rgba(255,255,255,0.12);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-left: 8px;
+    transition: background 0.3s, transform 0.2s;
 }
 
 .report-form-modern .submit-button:hover {
-    background: linear-gradient(90deg, #1976D2 0%, #21CBF3 100%);
-    transform: translateY(-2px) scale(1.03);
+    background: linear-gradient(90deg, #21CBF3 0%, #2196F3 100%);
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 8px 32px 0 rgba(33,150,243,0.25);
+}
+
+.report-form-modern .submit-button:hover .button-icon {
+    background: rgba(255,255,255,0.22);
+    transform: translateX(6px) scale(1.1);
 }
 
 .report-form-modern .chat-header {

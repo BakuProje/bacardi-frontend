@@ -687,7 +687,7 @@ function renderReportForm() {
                 </div>
                 <button type="submit" class="submit-button">
                     <span class="button-text">Kirim Report</span>
-                    <span class="button-icon">→</span>
+                    <span class="button-icon"></span>
                 </button>
             </form>
         </div>
