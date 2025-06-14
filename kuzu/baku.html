@@ -691,6 +691,16 @@
     </style>
 </head>
 <body>
+    <div id="loginModal" class="modal" style="display: none; z-index: 2000;">
+        <div class="modal-content" style="width: 350px; text-align: center;">
+            <h3 class="modal-title">Admin Login</h3>
+            <form id="adminLoginForm" onsubmit="return handleAdminLogin(event)">
+                <input type="password" id="adminPassword" placeholder="Masukkan Password" style="width: 100%; padding: 12px; margin: 18px 0; border-radius: 8px; border: 1px solid #ccc; font-size: 1rem;" required autocomplete="current-password">
+                <button type="submit" class="modal-btn confirm" style="width: 100%;">Login</button>
+            </form>
+            <div id="loginError" style="color: #ef4444; margin-top: 10px; display: none;">Password salah!</div>
+        </div>
+    </div>
     <div class="container">
         <div class="sidebar">
             <div class="sidebar-header">
@@ -1344,6 +1354,37 @@
                 sidebar.classList.remove('active');
                 overlay.classList.remove('active');
                 document.body.style.overflow = 'auto';
+            }
+        });
+
+        function showLoginModal() {
+            document.getElementById('loginModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => {
+                document.getElementById('adminPassword').focus();
+            }, 200);
+        }
+        function hideLoginModal() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        function handleAdminLogin(event) {
+            event.preventDefault();
+            const pass = document.getElementById('adminPassword').value;
+            if (pass === '@kuzuroken#3') {
+                sessionStorage.setItem('adminLoggedIn', 'true');
+                hideLoginModal();
+                fetchReports();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+            return false;
+        }
+        window.addEventListener('DOMContentLoaded', function() {
+            if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+                showLoginModal();
+            } else {
+                fetchReports();
             }
         });
     </script>

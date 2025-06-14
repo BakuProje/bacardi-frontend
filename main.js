@@ -653,6 +653,7 @@ document.addEventListener('visibilitychange', () => {
 function renderReportForm() {
     const modalContent = document.querySelector('.modal-content');
     modalContent.innerHTML = `
+        <span class="close" onclick="closeReportForm()">&times;</span>
         <div class="report-form-modern">
             <div class="chat-header">
                 <div class="chat-header-info">
