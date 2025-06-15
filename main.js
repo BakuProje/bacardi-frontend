@@ -68,7 +68,7 @@ async function submitReport(event) {
 
         // Tambahkan tombol WhatsApp
         const whatsappButton = document.createElement('a');
-        whatsappButton.href = 'https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A%0AMasalah%3A';
+        whatsappButton.href = 'https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A';
         whatsappButton.className = 'whatsapp-button';
         whatsappButton.target = '_blank';
         whatsappButton.innerHTML = `
@@ -318,9 +318,9 @@ function appendMessage(data) {
         `;
     }
 
-    // Add WhatsApp button if this is the WhatsApp button message
+    // Add WhatsApp button if this is the specific message
     let whatsappButton = '';
-    if (data.isWhatsAppButton) {
+    if (data.message === 'Kalau mau chat Owner langsung silahkan klik di bawah ini' || data.isWhatsAppButton) {
         whatsappButton = `
             <div class="whatsapp-button-container" style="margin-top: 10px;">
                 <a href="https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A${encodeURIComponent(new Date().toLocaleDateString())}%0AMasalah%3A" 
