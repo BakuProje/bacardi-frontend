@@ -634,7 +634,7 @@
                 position: fixed;
                 top: 10px;
                 left: 10px;
-                z-index: 1000;
+                z-index: 10001 !important;
             }
 
             .sidebar {
@@ -642,7 +642,7 @@
                 left: -320px;
                 top: 0;
                 bottom: 0;
-                z-index: 10001;
+                z-index: 10000 !important;
                 background: var(--background-light);
                 width: 320px;
                 transition: left 0.3s ease;
@@ -880,47 +880,48 @@
 
         function addReportItemListeners() {
             document.querySelectorAll('.report-item').forEach(item => {
-                item.onclick = function(e) {
-
+                item.onclick = null;
+                item.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     const reportId = this.getAttribute('data-report-id');
                     const growId = this.getAttribute('data-grow-id');
                     const category = this.getAttribute('data-category');
                     const status = this.getAttribute('data-status');
                     selectReport(reportId, growId, category, status);
-                };
+                });
             });
         }
 
         function selectReport(reportId, growId, category, status) {
-            currentReportId = reportId;
-            document.getElementById('currentReportTitle').textContent = growId;
-            document.getElementById('reportCategory').innerHTML = `
-                <span class="chat-header-status">
-                    ${category} • ${status.charAt(0).toUpperCase() + status.slice(1)}
-                </span>
-            `;
-            document.getElementById('closeReportBtn').style.display = status !== 'resolved' ? 'block' : 'none';
+    currentReportId = reportId;
+    document.getElementById('currentReportTitle').textContent = growId;
+    document.getElementById('reportCategory').innerHTML = `
+        <span class="chat-header-status">
+            ${category} • ${status.charAt(0).toUpperCase() + status.slice(1)}
+        </span>
+    `;
+    document.getElementById('closeReportBtn').style.display = status !== 'resolved' ? 'block' : 'none';
 
-            document.querySelectorAll('.report-item').forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('data-report-id') === reportId) {
-                    item.classList.remove('unread');
-                    const badge = item.querySelector('.unread-badge');
-                    if (badge) badge.remove();
-                    item.classList.add('active');
-                }
-            });
-
-            socket.emit('join-report', reportId);
-
-            loadReportMessages(reportId).then(() => {
-                setTimeout(() => markMessagesAsRead(), 1000);
-                if (window.innerWidth <= 768) {
-                    toggleSidebar();
-                }
-            });
+    document.querySelectorAll('.report-item').forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('data-report-id') === reportId) {
+            item.classList.remove('unread');
+            const badge = item.querySelector('.unread-badge');
+            if (badge) badge.remove();
+            item.classList.add('active');
         }
+    });
 
+    socket.emit('join-report', reportId);
+
+    // Pastikan loadReportMessages mengembalikan Promise
+    Promise.resolve(loadReportMessages(reportId)).then(() => {
+        setTimeout(() => markMessagesAsRead(), 1000);
+        if (window.innerWidth <= 768) {
+            toggleSidebar();
+        }
+    });
+}
         async function loadReportMessages(reportId) {
             try {
                 const response = await fetch(`${API_URL}/api/reports/${reportId}`);
