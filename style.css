@@ -653,6 +653,8 @@ body {
 }
 
 
+/* Hapus atau komentari style snowflake */
+/*
 .snowflake {
     position: fixed;
     top: -10px;
@@ -668,6 +670,7 @@ body {
         transform: translateY(100vh);
     }
 }
+*/
 
 @media (max-width: 480px) {
     .container {
@@ -686,9 +689,10 @@ body {
     .chat-input-container {
         background: #181f2a !important;
     }
-    .snowflake {
+    /* Hapus bagian snowflake di media query karena sudah tidak diperlukan */
+    /* .snowflake {
         display: none !important;
-    }
+    } */
     .modal-content {
         height: 95vh;
         max-width: 98vw;
