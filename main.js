@@ -15,38 +15,7 @@ window.addEventListener('load', () => {
         loadReportMessages(currentReportId);
     }
 });
-const adminResponse = {
-    reportId: currentReportId,
-    message: 'Admin Kami akan membalas Pesan mu. Silahkan Menunggu',
-    isAdmin: true,
-    createdAt: new Date()
-};
 
-appendMessage(adminResponse);
-
-const whatsappMessage = {
-    reportId: currentReportId,
-    message: 'Kalau mau chat Owner langsung silahkan klik di bawah ini',
-    isAdmin: true,
-    createdAt: new Date()
-};
-
-appendMessage(whatsappMessage);
-
-// Add WhatsApp button
-const whatsappButton = document.createElement('a');
-whatsappButton.href = 'https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A%0AMasalah%3A';
-whatsappButton.className = 'whatsapp-button';
-whatsappButton.target = '_blank';
-whatsappButton.innerHTML = `
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
-    Chat via WhatsApp
-`;
-
-const messagesDiv = document.getElementById('userMessages');
-if (messagesDiv) {
-    messagesDiv.appendChild(whatsappButton);
-}
 async function submitReport(event) {
     event.preventDefault();
     
@@ -78,6 +47,39 @@ async function submitReport(event) {
         showNotification('Laporan berhasil dikirim!', 'success');
         currentReportId = data._id;
         localStorage.setItem('currentReportId', currentReportId);
+
+        // Tampilkan pesan otomatis dari admin
+        const adminResponse = {
+            reportId: currentReportId,
+            message: 'Admin Kami akan membalas Pesan mu. Silahkan Menunggu',
+            isAdmin: true,
+            createdAt: new Date()
+        };
+        appendMessage(adminResponse);
+
+        // Tampilkan pesan WhatsApp
+        const whatsappMessage = {
+            reportId: currentReportId,
+            message: 'Kalau mau chat Owner langsung silahkan klik di bawah ini',
+            isAdmin: true,
+            createdAt: new Date()
+        };
+        appendMessage(whatsappMessage);
+
+        // Tambahkan tombol WhatsApp
+        const whatsappButton = document.createElement('a');
+        whatsappButton.href = 'https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A%0AMasalah%3A';
+        whatsappButton.className = 'whatsapp-button';
+        whatsappButton.target = '_blank';
+        whatsappButton.innerHTML = `
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon">
+            Chat via WhatsApp
+        `;
+
+        const messagesDiv = document.getElementById('userMessages');
+        if (messagesDiv) {
+            messagesDiv.appendChild(whatsappButton);
+        }
         
         showChatInterface();
         socket.emit('join-report', currentReportId);
