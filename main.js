@@ -63,7 +63,6 @@ async function submitReport(event) {
         currentReportId = data._id;
         localStorage.setItem('currentReportId', currentReportId);
 
-        // Tampilkan pesan otomatis dari admin
         const adminResponse = {
             reportId: currentReportId,
             message: 'Admin Kami akan membalas Pesan mu. Silahkan Menunggu',
@@ -72,7 +71,6 @@ async function submitReport(event) {
         };
         appendMessage(adminResponse);
 
-        // Tampilkan pesan WhatsApp
         const whatsappMessage = {
             reportId: currentReportId,
             message: 'Kalau mau chat Owner langsung silahkan klik di bawah ini',
@@ -81,7 +79,7 @@ async function submitReport(event) {
         };
         appendMessage(whatsappMessage);
 
-        // Tambahkan tombol WhatsApp
+       
         const whatsappButton = document.createElement('a');
         whatsappButton.href = 'https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A${encodeURIComponent(formatDateTime(new Date()))}%0AMasalah%3A"';
         whatsappButton.className = 'whatsapp-button';
@@ -333,7 +331,6 @@ function appendMessage(data) {
         `;
     }
 
-    // Add WhatsApp button if this is the specific message
     let whatsappButton = '';
     if (data.message === 'Kalau mau chat Owner langsung silahkan klik di bawah ini' || data.isWhatsAppButton) {
         whatsappButton = `
@@ -351,7 +348,6 @@ function appendMessage(data) {
         `;
     }
 
-    // Tambahan: render gambar jika ada
     let imageHtml = '';
     if (data.image) {
         let imgSrc = data.image.startsWith('http') ? data.image : API_URL + data.image;
