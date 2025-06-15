@@ -696,6 +696,19 @@ body {
 
 
 @media (max-width: 480px) {
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(255,255,255,0.35);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 0;
+        pointer-events: none;
+    }
     .container {
         padding: 4px;
     }
@@ -704,7 +717,7 @@ body {
     .report-form-modern {
         backdrop-filter: none !important;
         box-shadow: none !important;
-        background: rgba(255,255,255,0.15) !important;
+        background: transparent !important;
     }
     .chat-container,
     .chat-messages,
