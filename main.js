@@ -351,9 +351,21 @@ function appendMessage(data) {
         `;
     }
 
+    // Tambahan: render gambar jika ada
+    let imageHtml = '';
+    if (data.image) {
+        let imgSrc = data.image.startsWith('http') ? data.image : API_URL + data.image;
+        imageHtml = `
+            <div class="message-image-container">
+                <img src="${imgSrc}" alt="Shared image" class="message-image" onclick="showFullscreenImage('${imgSrc}')">
+            </div>
+        `;
+    }
+
     const messageHtml = `
         ${adminHeader}
         <div class="message-content" style="padding: 12px 16px; border-radius: 16px; margin-bottom: 8px; background: ${data.isAdmin ? 'rgba(33, 150, 243, 0.15)' : 'rgba(33, 150, 243, 0.25)'};">
+            ${imageHtml}
             <div class="message-text">${data.message}</div>
             ${whatsappButton}
             <div class="message-footer" style="margin-top: 8px; text-align: right; font-size: 0.75rem; color: rgba(255, 255, 255, 0.6);">
