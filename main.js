@@ -307,18 +307,6 @@ function appendMessage(data) {
     messageElement.className = `message ${data.isAdmin ? 'admin' : 'user'}`;
     messageElement.setAttribute('data-message-id', messageId);
 
-    let imageHtml = '';
-    if (data.image) {
-        imageHtml = `
-            <div class="message-image-container">
-                <img src="${API_URL}${data.image}" 
-                     alt="Shared image" 
-                     class="message-image"
-                     onclick="showFullscreenImage('${API_URL}${data.image}')">
-            </div>
-        `;
-    }
-
     let adminHeader = '';
     if (data.isAdmin) {
         const avatar = data.adminAvatar ? data.adminAvatar : './img/bacardi.png';
@@ -331,11 +319,28 @@ function appendMessage(data) {
         `;
     }
 
+    // Add WhatsApp button if this is the WhatsApp button message
+    let whatsappButton = '';
+    if (data.isWhatsAppButton) {
+        whatsappButton = `
+            <div class="whatsapp-button-container">
+                <a href="https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A%0AMasalah%3A" 
+                   class="whatsapp-button" 
+                   target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
+                         alt="WhatsApp" 
+                         class="whatsapp-icon">
+                    <span>Chat via WhatsApp</span>
+                </a>
+            </div>
+        `;
+    }
+
     const messageHtml = `
         ${adminHeader}
         <div class="message-content">
-            ${imageHtml}
             <div class="message-text">${data.message}</div>
+            ${whatsappButton}
             <div class="message-footer">
                 <span class="message-time">${new Date(data.createdAt).toLocaleTimeString('id-ID')}</span>
             </div>

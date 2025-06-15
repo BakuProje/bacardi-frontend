@@ -24,28 +24,37 @@ body {
     align-items: center;
 }
 .whatsapp-button {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: #25D366;
+    background-color: #25D366;
     color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
+    padding: 8px 15px;
+    border-radius: 20px;
     text-decoration: none;
-    margin: 15px auto;
-    max-width: 250px;
-    transition: all 0.3s ease;
-}
-.whatsapp-button:hover {
-    background: #128C7E;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    font-size: 14px;
+    margin-top: 8px;
+    transition: background-color 0.3s;
 }
 
+.whatsapp-button:hover {
+    background-color: #128C7E;
+}
+.whatsapp-button-container {
+    margin-top: 10px;
+    text-align: left;
+}
 .whatsapp-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+.message.admin .whatsapp-button {
+    background-color: #202c33;
+    border: 1px solid #374045;
+}
+
+.message.admin .whatsapp-button:hover {
+    background-color: #2a3942;
 }
 .container {
     width: 100%;
