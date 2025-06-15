@@ -916,7 +916,6 @@
 
             setTimeout(() => markMessagesAsRead(), 1000);
 
-
             if (window.innerWidth <= 768) {
                 toggleSidebar();
             }
@@ -1372,7 +1371,7 @@
             event.preventDefault();
             const pass = document.getElementById('adminPassword').value;
             if (pass === '@kuzuroken#3') {
-                sessionStorage.setItem('adminLoggedIn', 'true');
+                localStorage.setItem('adminLoggedIn', 'true');
                 hideLoginModal();
                 fetchReports();
             } else {
@@ -1381,12 +1380,17 @@
             return false;
         }
         window.addEventListener('DOMContentLoaded', function() {
-            if (sessionStorage.getItem('adminLoggedIn') !== 'true') {
+            if (localStorage.getItem('adminLoggedIn') !== 'true') {
                 showLoginModal();
             } else {
                 fetchReports();
             }
         });
+
+        function adminLogout() {
+            localStorage.removeItem('adminLoggedIn');
+            location.reload();
+        }
     </script>
 </body>
 </html> 
