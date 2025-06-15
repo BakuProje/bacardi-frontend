@@ -912,13 +912,13 @@
             });
 
             socket.emit('join-report', reportId);
-            loadReportMessages(reportId);
 
-            setTimeout(() => markMessagesAsRead(), 1000);
-
-            if (window.innerWidth <= 768) {
-                toggleSidebar();
-            }
+            loadReportMessages(reportId).then(() => {
+                setTimeout(() => markMessagesAsRead(), 1000);
+                if (window.innerWidth <= 768) {
+                    toggleSidebar();
+                }
+            });
         }
 
         async function loadReportMessages(reportId) {
