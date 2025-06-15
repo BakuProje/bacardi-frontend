@@ -22,7 +22,43 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
+
+#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+    min-width: 100%;
+    min-height: 100%;
+    background: #181f2a;
+    transition: filter 0.3s;
+}
+
+@media (max-width: 768px) {
+    #bg-video {
+        object-fit: cover;
+        width: 100vw;
+        height: 100vh;
+        min-width: 100vw;
+        min-height: 100vh;
+    }
+}
+
+@media (max-width: 480px) {
+    #bg-video {
+        object-fit: cover;
+        width: 100vw;
+        height: 100vh;
+        min-width: 100vw;
+        min-height: 100vh;
+    }
+}
+
 .whatsapp-button {
     display: inline-flex;
     align-items: center;
@@ -63,11 +99,11 @@ body {
 }
 
 .content-wrapper {
-    background: var(--card-bg);
+    background: rgba(255,255,255,0.15);
     border-radius: 20px;
     padding: 30px;
     box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
 }
 
 .logo-section {
@@ -93,9 +129,9 @@ body {
 .link-button, .report-button {
     padding: 16px 24px;
     border-radius: var(--border-radius);
-    border: 1px solid #2563eb33;
-    background: #232c3b;
-    color: #e0e6ed;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.25);
+    color: #232c3b;
     font-size: 16px;
     text-decoration: none;
     text-align: left;
@@ -131,14 +167,14 @@ body {
 }
 
 .link-button:hover, .report-button:hover {
-    background: #2563eb;
-    color: #fff;
-    border-color: #2563eb;
+    background: rgba(255,255,255,0.35);
+    color: #232c3b;
+    border-color: rgba(255,255,255,0.25);
 }
 
 .report-button {
-    background: linear-gradient(90deg, #2563eb 0%, #1e293b 100%);
-    color: #fff;
+    background: linear-gradient(90deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.18) 100%);
+    color: #232c3b;
 }
 
 .modal {
@@ -668,7 +704,7 @@ body {
     .report-form-modern {
         backdrop-filter: none !important;
         box-shadow: none !important;
-        background: #181f2a !important;
+        background: rgba(255,255,255,0.15) !important;
     }
     .chat-container,
     .chat-messages,
@@ -723,6 +759,16 @@ body {
     }
     .modal-content .close {
         display: block !important;
+    }
+    .link-button, .report-button {
+        background: rgba(255,255,255,0.25) !important;
+        color: #232c3b !important;
+        border: 1px solid rgba(255,255,255,0.18) !important;
+    }
+    .link-button:hover, .report-button:hover {
+        background: rgba(255,255,255,0.35) !important;
+        color: #232c3b !important;
+        border-color: rgba(255,255,255,0.25) !important;
     }
 }
 
