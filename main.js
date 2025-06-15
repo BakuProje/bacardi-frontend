@@ -295,7 +295,6 @@ async function loadReportMessages(reportId) {
         showNotification('Gagal memuat pesan', 'error');
     }
 }
-
 function appendMessage(data) {
     const messagesDiv = document.getElementById('userMessages');
     if (!messagesDiv) return;
@@ -323,13 +322,14 @@ function appendMessage(data) {
     let whatsappButton = '';
     if (data.isWhatsAppButton) {
         whatsappButton = `
-            <div class="whatsapp-button-container">
-                <a href="https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A%0AMasalah%3A" 
+            <div class="whatsapp-button-container" style="margin-top: 10px;">
+                <a href="https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A${encodeURIComponent(new Date().toLocaleDateString())}%0AMasalah%3A" 
                    class="whatsapp-button" 
-                   target="_blank">
+                   target="_blank"
+                   style="display: inline-flex; align-items: center; background-color: #25D366; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none; font-size: 14px; margin-top: 8px;">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" 
                          alt="WhatsApp" 
-                         class="whatsapp-icon">
+                         style="width: 20px; height: 20px; margin-right: 8px;">
                     <span>Chat via WhatsApp</span>
                 </a>
             </div>
@@ -338,11 +338,11 @@ function appendMessage(data) {
 
     const messageHtml = `
         ${adminHeader}
-        <div class="message-content">
+        <div class="message-content" style="padding: 12px 16px; border-radius: 16px; margin-bottom: 8px; background: ${data.isAdmin ? 'rgba(33, 150, 243, 0.15)' : 'rgba(33, 150, 243, 0.25)'};">
             <div class="message-text">${data.message}</div>
             ${whatsappButton}
-            <div class="message-footer">
-                <span class="message-time">${new Date(data.createdAt).toLocaleTimeString('id-ID')}</span>
+            <div class="message-footer" style="margin-top: 8px; text-align: right; font-size: 0.75rem; color: rgba(255, 255, 255, 0.6);">
+                ${new Date(data.createdAt).toLocaleTimeString('id-ID')}
             </div>
         </div>
     `;
@@ -351,7 +351,6 @@ function appendMessage(data) {
     messagesDiv.appendChild(messageElement);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
-
 async function handleImageUpload(event) {
     const file = event.target.files[0];
     if (!file) return;
