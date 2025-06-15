@@ -5,6 +5,21 @@ let isTyping = false;
 let typingTimeout;
 let selectedImage = null; 
 
+function formatDateTime(dateString) {
+    const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const bulan = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ];
+    const date = new Date(dateString);
+    const dayName = hari[date.getDay()];
+    const day = date.getDate();
+    const month = bulan[date.getMonth()];
+    const year = date.getFullYear();
+    const jam = date.getHours().toString().padStart(2, '0');
+    const menit = date.getMinutes().toString().padStart(2, '0');
+    return `${dayName}, ${day} ${month} ${year}, ${jam}:${menit}`;
+}
 
 window.addEventListener('load', () => {
     const storedReportId = localStorage.getItem('currentReportId');
@@ -68,7 +83,7 @@ async function submitReport(event) {
 
         // Tambahkan tombol WhatsApp
         const whatsappButton = document.createElement('a');
-        whatsappButton.href = 'https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A';
+        whatsappButton.href = 'https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A${encodeURIComponent(formatDateTime(new Date()))}%0AMasalah%3A"';
         whatsappButton.className = 'whatsapp-button';
         whatsappButton.target = '_blank';
         whatsappButton.innerHTML = `
@@ -111,13 +126,13 @@ function showChatInterface() {
                 <span class="typing-text">Admin sedang mengetik...</span>
             </div>
             <div class="chat-input-container">
-                <form id="userMessageForm" onsubmit="sendUserMessage(event); return false;">
-                    <label for="imageUpload" class="upload-image-btn" title="Kirim Foto">
+                <form id="userMessageForm" onsubmit="sendUserMessage(event); return false;" style="display: flex; align-items: center; gap: 8px;">
+                    <label for="imageUpload" class="upload-image-btn" title="Kirim Foto" style="flex-shrink: 0;">
                         📷
                         <input type="file" id="imageUpload" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
                     </label>
-                    <input type="text" id="userMessageInput" placeholder="Ketik pesan..." oninput="handleTyping()">
-                    <button type="submit" class="send-button" title="Kirim">
+                    <input type="text" id="userMessageInput" placeholder="Ketik pesan..." oninput="handleTyping()" style="flex: 1; min-width: 0;">
+                    <button type="submit" class="send-button" title="Kirim" style="flex-shrink: 0;">
                         <span>➤</span>
                     </button>
                 </form>
@@ -323,7 +338,7 @@ function appendMessage(data) {
     if (data.message === 'Kalau mau chat Owner langsung silahkan klik di bawah ini' || data.isWhatsAppButton) {
         whatsappButton = `
             <div class="whatsapp-button-container" style="margin-top: 10px;">
-                <a href="https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A${encodeURIComponent(new Date().toLocaleDateString())}%0AMasalah%3A" 
+                <a href="https://api.whatsapp.com/send?phone=6281527641306&text=Welcome%20To%20Bacardi%20Support%0A%0AGrowid%3A%0ATanggal%3A${encodeURIComponent(formatDateTime(new Date()))}%0AMasalah%3A" 
                    class="whatsapp-button" 
                    target="_blank"
                    style="display: inline-flex; align-items: center; background-color: #25D366; color: white; padding: 8px 15px; border-radius: 20px; text-decoration: none; font-size: 14px; margin-top: 8px;">
@@ -342,7 +357,7 @@ function appendMessage(data) {
             <div class="message-text">${data.message}</div>
             ${whatsappButton}
             <div class="message-footer" style="margin-top: 8px; text-align: right; font-size: 0.75rem; color: rgba(255, 255, 255, 0.6);">
-                ${new Date(data.createdAt).toLocaleTimeString('id-ID')}
+                ${formatDateTime(data.createdAt)}
             </div>
         </div>
     `;
